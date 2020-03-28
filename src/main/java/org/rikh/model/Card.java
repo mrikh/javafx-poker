@@ -23,7 +23,7 @@ public class Card  {
     public Card(){
 
         Random random = new Random();
-        value = random.nextInt(13 - 1) + 1;
+        value = random.nextInt(14 - 2) + 2;
 
         int suit = random.nextInt(4 - 1) + 1;
         this.suit = createSuit(suit);
@@ -72,7 +72,7 @@ public class Card  {
         String temp = "";
 
         switch (value){
-            case 1:
+            case 14:
                 temp = "Ace";
                 break;
             case 11:

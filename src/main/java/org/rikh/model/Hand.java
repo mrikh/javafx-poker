@@ -18,7 +18,7 @@ public class Hand {
      * Enum to keep track of the pattern the current hand displays
      */
     public enum Combination{
-        STRAIGHT(4), FLUSH(3), TRIPLETS(2), PAIRS(1), NOTHING(0);
+        STRAIGHT(4), FLUSH(3), TRIPLETS(2), , PAIRS(1), NOTHING(0);
         //value associated with the enum for easy comparison
         private int value;
 
