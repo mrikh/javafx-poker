@@ -1,14 +1,9 @@
 package org.rikh.model;
 
-import java.util.ArrayList;
+public class Pattern implements Comparable<Pattern>{
 
-public class Pattern {
-
-    /**
-     * Enum to keep track of the pattern the current hand displays
-     */
     public enum Combination{
-        STRAIGHT(4), FLUSH(3), TRIPLETS(2), PAIRS(1), NOTHING(0);
+        ROYAL_FLUSH(9), STRAIGHT_FLUSH(8), FOUR_KIND(7), FLUSH(6), STRAIGHT(5), FULL_HOUSE(4), TRIPLETS(3), TWO_PAIRS(2), PAIR(1), NOTHING(0);
         //value associated with the enum for easy comparison
         private int value;
 
@@ -34,27 +29,80 @@ public class Pattern {
          */
         public String toString() {
             switch (this){
+                case ROYAL_FLUSH:
+                    return "Royal Flush";
+                case STRAIGHT_FLUSH:
+                    return "Straight Flush";
+                case FOUR_KIND:
+                    return "Four of a Kind";
                 case FLUSH:
                     return "Flush";
-                case PAIRS:
-                    return "Pairs";
-                case NOTHING:
-                    return "Nothing";
                 case STRAIGHT:
                     return "Straight";
+                case FULL_HOUSE:
+                    return "Full House";
+                case TWO_PAIRS:
+                    return "Two Pairs";
+                case PAIR:
+                    return "One Pair";
+                case NOTHING:
+                    return "Nothing";
                 case TRIPLETS:
                     return "Triplets";
             }
-
             return "Nothing";
         }
     }
 
-    private Card[] cards;
-    private Combination combination = Combination.NOTHING;
+    private Combination combination;
+    private Card highestCard;
 
-    public Pattern(Combination combination, Card[] cards){
+    //other card of necessary
+    private Card otherCard;
+
+    public Pattern(Combination combination, Card card){
         this.combination = combination;
-        this.cards = cards;
+        highestCard = card;
+    }
+
+    public Pattern(Combination combination, Card card, Card secondCard){
+        this.combination = combination;
+        highestCard = card;
+        otherCard = secondCard;
+    }
+
+    @Override
+    public int compareTo(Pattern o) {
+        if (this.combination.getValue() > o.combination.getValue()){
+            return 1;
+        }else if (this.combination.getValue() < o.combination.getValue()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+
+    public boolean isDecentCombination(){
+
+        if (combination.getValue() == 1 && highestCard.getValue() > 10) {
+            return true;
+        }else if (combination.getValue() > 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return combination.toString() + " with highest card " + highestCard.toString();
+    }
+
+    public Card getHighestCard(){
+        return highestCard;
+    }
+
+    public Card getSecondaryCard(){
+        return otherCard;
     }
 }

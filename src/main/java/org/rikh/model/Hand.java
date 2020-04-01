@@ -8,57 +8,11 @@ import java.util.Random;
 /**
  * Class to keep track of the cards user has in his hand
  */
-public class Hand {
+public class Hand{
 
     //array of type cards
     public static int capacity = 5;
     private Card[] hand = new Card[capacity];
-
-    /**
-     * Enum to keep track of the pattern the current hand displays
-     */
-    public enum Combination{
-        STRAIGHT(4), FLUSH(3), TRIPLETS(2), , PAIRS(1), NOTHING(0);
-        //value associated with the enum for easy comparison
-        private int value;
-
-        /**
-         * Constructor to initialize value
-         * @param i Value to set the associated value to
-         */
-        Combination(int i) {
-            value = i;
-        }
-
-        /**
-         * Method to get value associated with enum
-         * @return Value with the current enum
-         */
-        public int getValue(){
-            return value;
-        }
-
-        @Override
-        /**
-         * Return value as a string
-         */
-        public String toString() {
-            switch (this){
-                case FLUSH:
-                    return "Flush";
-                case PAIRS:
-                    return "Pairs";
-                case NOTHING:
-                    return "Nothing";
-                case STRAIGHT:
-                    return "Straight";
-                case TRIPLETS:
-                    return "Triplets";
-            }
-
-            return "Nothing";
-        }
-    }
 
     /**
      * Constructor to create with specified values
@@ -74,83 +28,57 @@ public class Hand {
         for(int i = 0; i < values.length; i++){
             hand[i] = new Card(suit, values[i]);
         }
+
+        Arrays.sort(hand);
     }
 
     /**
      * Constructor to initialize the current hand with random cards.
-     * @param previousHand Array of cards to check against if value already exists
+     * @param cards Array of cards to check against if value already exists
      */
-    public Hand(Card[] previousHand){
+    public Hand(Card[] cards){
 
-        for (int i = 0; i < hand.length; i++){
-
-            Card card = new Card();
-            while(cardExists(card, hand) || cardExists(card, previousHand)){
-                card = new Card();
-            }
-            hand[i] = card;
-        }
-
+        hand = cards;
         //sort the hand to make things easier. If the future requires comparing which of the pairs is same
-        for (int i = 0; i< hand.length; i++){
-            for(int j = 0; j < hand.length; j++){
-                if (hand[i].greaterThan(hand[j])){
-                    Card temp = hand[j];
-                    hand[j] = hand[i];
-                    hand[i] = temp;
-                }
-            }
-        }
+        Arrays.sort(hand);
     }
 
     /**
      * Get the pattern shown by the hand.
      * @return Returns one of the enum values after checking the hand.
      */
-    public Combination getCombination(){
-        boolean isStraight = true;
-        boolean isFlush = true;
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+    public Pattern getBestHand(){
 
-        //wanted to use one loop to do all checks
-        for (int i = 0; i < hand.length; i++){
-            //didnt want app to crash as we are using i + 1 value checks so put an if condition
-            if (i != hand.length - 1) {
-                if (hand[i + 1].getValue() - hand[i].getValue() != 1) {
-                    isStraight = false;
-                }
-                if (hand[i + 1].getSuit() != hand[i].getSuit()) {
-                    isFlush = false;
-                }
-            }
+        Pattern royalFlush = royalFlushPattern();
+        Pattern straightFlush = straightFlushPattern();
+        Pattern fourKind = fourKindPattern();
+        Pattern flush = flushPattern();
+        Pattern straight = straightPattern();
+        Pattern fullHouse = fullHousePattern();
+        Pattern triplet = tripletPattern();
+        Pattern twoPair = twoPairPattern();
+        Pattern pair = pairPattern();
 
-            //put values into hashmap to keep track of how many times a number comes
-            int value = hand[i].getValue();
-            if (map.get(value) == null){
-                map.put(value, 1);
-            }else{
-                map.put(value, map.get(value) + 1);
-            }
-        }
-
-        if (isStraight){
-            return Combination.STRAIGHT;
-        }else if (isFlush){
-            return Combination.FLUSH;
+        if (royalFlush != null){
+            return royalFlush;
+        }else if (straightFlush != null){
+            return  straightFlush;
+        }else if (fourKind != null){
+            return fourKind;
+        }else if(flush != null){
+            return flush;
+        }else if (straight != null){
+            return straight;
+        }else if (fullHouse != null){
+            return fullHouse;
+        }else if(triplet != null){
+            return triplet;
+        }else if(twoPair != null){
+            return twoPair;
+        }else if(pair != null){
+            return pair;
         }else{
-            //Iterate over hashmap to find triplets and pairs
-            for (Map.Entry<Integer, Integer> pair : map.entrySet()){
-                Integer key = pair.getKey();
-                Integer value = pair.getValue();
-
-                if (value == 3){
-                    return Combination.TRIPLETS;
-                }else if(value == 2){
-                    return Combination.PAIRS;
-                }
-            }
-
-            return Combination.NOTHING;
+            return new Pattern(Pattern.Combination.NOTHING, new Card(1, 1));
         }
     }
 
@@ -161,6 +89,13 @@ public class Hand {
 
     public Card[] getCards(){
         return hand;
+    }
+
+    public Card getCard(int position) { return hand[position]; }
+
+    public void updateCard(int position, Card card){
+        hand[position] = card;
+        Arrays.sort(hand);
     }
 
     /**
@@ -181,5 +116,167 @@ public class Hand {
         }
 
         return false;
+    }
+
+    //Hand pattern checks
+    private Pattern royalFlushPattern(){
+
+        //king at one end and ace in other is not present
+        if (hand[hand.length - 1].getValue() != 13 && hand[0].getValue() != 1){
+            return null;
+        }
+
+        Card.Suit suit = hand[hand.length - 1].getSuit();
+        for (int i = hand.length - 1; i > 1; i--){
+            if ((hand[i].getValue() - hand[i - 1].getValue() != 1) || suit != hand[i].getSuit()){
+                return null;
+            }
+        }
+        return new Pattern(Pattern.Combination.ROYAL_FLUSH, hand[0]);
+    }
+
+    private Pattern straightFlushPattern(){
+
+        Card.Suit suit = hand[hand.length - 1].getSuit();
+        for (int i = hand.length - 1; i >= 0; i--){
+            if ((hand[i].getValue() - hand[i - 1].getValue() != 1) || suit != hand[i].getSuit()){
+                return null;
+            }
+        }
+        return new Pattern(Pattern.Combination.STRAIGHT_FLUSH, hand[hand.length - 1]);
+    }
+
+    private Pattern straightPattern(){
+
+        for (int i = hand.length - 1; i >= 0; i--){
+            if ((hand[i].getValue() - hand[i - 1].getValue() != 1)){
+                return null;
+            }
+        }
+        return new Pattern(Pattern.Combination.STRAIGHT, hand[hand.length - 1]);
+    }
+
+    private Pattern flushPattern(){
+
+        Card.Suit suit = hand[hand.length - 1].getSuit();
+        for (int i = 0; i < hand.length; i++){
+            if (suit != hand[i].getSuit()){
+                return null;
+            }
+        }
+        return new Pattern(Pattern.Combination.FLUSH, hand[hand.length - 1]);
+    }
+
+    private Pattern fourKindPattern(){
+
+        HashMap<Integer, Integer> map = convertToHashMap();
+
+        for (Map.Entry<Integer, Integer> pair : map.entrySet()){
+            Integer key = pair.getKey();
+            Integer value = pair.getValue();
+
+            if (value == 4){
+                //since we don't care about the suit in this case, initializing with random suit
+                return new Pattern(Pattern.Combination.FOUR_KIND, new Card(1, key));
+            }
+        }
+
+        return null;
+    }
+
+    private Pattern fullHousePattern(){
+
+        HashMap<Integer, Integer> map = convertToHashMap();
+        int tripletValue = -1;
+        int pairValue = -1;
+
+        for (Map.Entry<Integer, Integer> pair : map.entrySet()){
+            Integer key = pair.getKey();
+            Integer value = pair.getValue();
+
+            if (value == 3){
+                tripletValue = key;
+            }else if(value == 2){
+                pairValue = key;
+            }
+        }
+
+        if (pairValue != -1 && tripletValue != -1){
+            return new Pattern(Pattern.Combination.FULL_HOUSE, new Card(1, tripletValue), new Card(1, pairValue));
+        }else{
+            return null;
+        }
+    }
+
+    private Pattern tripletPattern(){
+
+        HashMap<Integer, Integer> map = convertToHashMap();
+
+        for (Map.Entry<Integer, Integer> pair : map.entrySet()){
+            Integer key = pair.getKey();
+            Integer value = pair.getValue();
+
+            if (value == 3){
+                return new Pattern(Pattern.Combination.TRIPLETS, new Card(1, key));
+            }
+        }
+
+        return null;
+    }
+
+    private Pattern twoPairPattern(){
+
+        HashMap<Integer, Integer> map = convertToHashMap();
+        int firstPair = -1;
+        int secondPair = -1;
+
+        for (Map.Entry<Integer, Integer> pair : map.entrySet()){
+            Integer key = pair.getKey();
+            Integer value = pair.getValue();
+
+            if (value == 2 && firstPair == -1){
+                firstPair = key;
+            }else if (value == 2){
+                secondPair = key;
+            }
+        }
+
+        if (firstPair != -1 && secondPair != -1){
+            return new Pattern(Pattern.Combination.TWO_PAIRS, new Card(1, firstPair), new Card(1, secondPair));
+        }else{
+            return null;
+        }
+    }
+
+    private Pattern pairPattern(){
+
+        HashMap<Integer, Integer> map = convertToHashMap();
+        int counter = 0;
+
+        for (Map.Entry<Integer, Integer> pair : map.entrySet()){
+            Integer key = pair.getKey();
+            Integer value = pair.getValue();
+
+            if (value == 2){
+                return new Pattern(Pattern.Combination.PAIR, new Card(1, key));
+            }
+        }
+
+        return null;
+    }
+
+    private HashMap<Integer, Integer> convertToHashMap(){
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < hand.length; i++){
+            int value = hand[i].getValue();
+            if (map.get(value) == null){
+                map.put(value, 1);
+            }else{
+                map.put(value, map.get(value) + 1);
+            }
+        }
+
+        return map;
     }
 }

@@ -1,13 +1,20 @@
 package org.rikh.views;
 
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import org.rikh.model.Hand;
+
+import java.util.ArrayList;
 
 public class CardsPane extends FlowPane{
 
@@ -27,12 +34,11 @@ public class CardsPane extends FlowPane{
         setHgap(spacing);
 
         for (int i = 0; i < Hand.capacity; i++){
-
             StackPane card;
             try{
-                card = setupCard(id + "c" + i, cardWidth, cardHeight, cards[i]);
+                card = setupCard(String.valueOf(i), cardWidth, cardHeight, cards[i]);
             }catch (NullPointerException e){
-                card = setupCard(id + "c" + i, cardWidth, cardHeight, "?");
+                card = setupCard(String.valueOf(i), cardWidth, cardHeight, "?");
             }
             getChildren().add(card);
         }
@@ -42,6 +48,46 @@ public class CardsPane extends FlowPane{
         return 5 * (spacing + cardWidth);
     }
 
+    public void startCardClickListen(EventHandler<MouseEvent> handler){
+        for (Node node : getChildren()){
+            if (node instanceof StackPane){
+                node.setOnMouseClicked(handler);
+            }
+        }
+    }
+
+    public void selectCard(String id) {
+
+        for (Node node : getChildren()) {
+            if (node instanceof StackPane) {
+                StackPane stack = (StackPane) node;
+                if (stack.getId().equalsIgnoreCase(id)) {
+                    for (Node child : stack.getChildren()){
+                        if (child instanceof Rectangle){
+                            ((Rectangle)child).setStroke(Paint.valueOf("#ff0000"));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void deSelectCard(String id) {
+
+        for (Node node : getChildren()) {
+            if (node instanceof StackPane) {
+                StackPane stack = (StackPane) node;
+                if (stack.getId().equalsIgnoreCase(id)) {
+                    for (Node child : stack.getChildren()){
+                        if (child instanceof Rectangle){
+                            ((Rectangle)child).setStroke(Paint.valueOf("#000000"));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public double getCardHeight(){
         return cardHeight;
     }
@@ -49,9 +95,9 @@ public class CardsPane extends FlowPane{
     private StackPane setupCard(String id, double width, double height, String title){
 
         StackPane stack = new StackPane();
+        stack.setId(id);
 
         Rectangle rect = new Rectangle(width, height);
-        rect.setId(id);
         rect.setFill(Color.WHITE);
         rect.setStroke(Color.BLACK);
 

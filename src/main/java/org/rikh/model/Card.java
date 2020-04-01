@@ -5,7 +5,18 @@ import java.util.Random;
 /**
  * Class to hold all card information
  */
-public class Card  {
+public class Card implements Comparable<Card>{
+
+    @Override
+    public int compareTo(Card o) {
+        if (this.value > o.value){
+            return 1;
+        }else if (this.value < o.value){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
 
     /**
      * Enum to keep track of the suit
@@ -23,7 +34,7 @@ public class Card  {
     public Card(){
 
         Random random = new Random();
-        value = random.nextInt(14 - 2) + 2;
+        value = random.nextInt(14 - 1) + 1;
 
         int suit = random.nextInt(4 - 1) + 1;
         this.suit = createSuit(suit);
@@ -53,16 +64,6 @@ public class Card  {
      */
     public Suit getSuit(){ return suit;}
 
-    /**
-     * Method to check if one card is greater than the card passed as the argument based on their numeric value
-     * @param card Param to compare against.
-     * @return Boolean, true if 'this' is greater than card passed as argument
-     */
-    public boolean greaterThan(Card card){
-        return value > card.value;
-    }
-
-
     @Override
     /**
      * Return a pretty format for the card class values
@@ -72,7 +73,7 @@ public class Card  {
         String temp = "";
 
         switch (value){
-            case 14:
+            case 1:
                 temp = "Ace";
                 break;
             case 11:

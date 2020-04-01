@@ -8,17 +8,21 @@ public class TokenPane extends FlowPane{
 
     private double spacing = 10.0;
     private double defaultCoinRadius = 10.0;
-    private int defaultCoinCount = 10;
+    private int tokenCount = 10;
 
-    public TokenPane(String id){
+    public TokenPane(int tokenCount){
 
-        setPrefWrapLength(defaultCoinCount * (spacing +  2 * defaultCoinRadius));
         setHgap(spacing);
+        updateCoins(tokenCount);
+    }
 
-        for (int i = 0; i < defaultCoinCount; i++){
+    public void updateCoins(int tokenCount){
+
+        this.tokenCount = tokenCount;
+        setPrefWrapLength(tokenCount * (spacing +  2 * defaultCoinRadius));
+        for (int i = 0; i < tokenCount; i++){
             Circle circle = new Circle();
             circle.setRadius(defaultCoinRadius);
-            circle.setId(id + "t" + i);
             circle.setStroke(Paint.valueOf("#000000"));
             circle.setFill(Paint.valueOf("#fdd023"));
             getChildren().add(circle);
@@ -30,6 +34,6 @@ public class TokenPane extends FlowPane{
     }
 
     public double getTotalWidth(){
-        return defaultCoinCount * (spacing +  2 * defaultCoinRadius);
+        return tokenCount * (spacing +  2 * defaultCoinRadius);
     }
 }
