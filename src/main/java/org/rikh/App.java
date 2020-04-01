@@ -61,8 +61,7 @@ public class App extends Application {
         //Our scene which is subclassed from the Pane class.
         pane = new PokerPane(width, height, controller.playerCards(), null);
 
-        //Initial button setup to decide who will go first. Logic will be implemented later after asking ashish.
-        /********************/
+        //Initial button setup to decide who will go first. TODO: Logic will be implemented later after asking ashish.
         setupGoFirstButtons();
 
         //Our scene which will hold the poker pane.
@@ -98,9 +97,7 @@ public class App extends Application {
         launch();
     }
 
-    /**
-     * ================= PRIVATE METHODS BELOW HERE =================
-     */
+    /*  ================= PRIVATE METHODS BELOW HERE ================= */
 
     /**
      * Reset method to reset the game at the end of every turn. OR end the game when someone runs out of tokens
@@ -130,7 +127,7 @@ public class App extends Application {
      */
     private void commonLayoutChangeUpdate(){
 
-        pane.updateLayout(width, height, controller.playerCards(), controller.showCard ? controller.opponentCards(): null);
+        pane.updateLayout(width, height, controller.playerCards(), controller.showCard ? controller.opponentCards(): null, controller.getPlayerToken(), controller.getOpponentToken(), controller.getCoinsInPot());
 
         /* Clear card selection as maintaining state required a lot more work. This situation of clearing only arises when someone
             resizes the window while card is highlighted.
@@ -201,15 +198,15 @@ public class App extends Application {
 
         Button doneButton = setupButton("Done", actionEvent -> {
             controller.changeCards();
-            pane.updateLayout(width, height, controller.playerCards(), null);
+            pane.updateLayout(width, height, controller.playerCards(), null, controller.getPlayerToken(), controller.getOpponentToken(), controller.getCoinsInPot());
             //remove card click
-            pane.cardClicked = null;
+            pane.cardClickAction = null;
             clearButtons();
             setupBetting();
         });
 
         //Card click event handler
-        pane.cardClicked = mouseEvent -> {
+        pane.cardClickAction = mouseEvent -> {
 
             if (mouseEvent.getSource() instanceof StackPane){
                 StackPane stack = (StackPane) mouseEvent.getSource();
@@ -221,11 +218,7 @@ public class App extends Application {
                     boolean select = controller.updateCard(pos);
 
                     //updated the controller, now update the view.
-                    if (select){
-                        pane.selectPlayerCard(String.valueOf(pos));
-                    }else{
-                        pane.deSelectPlayerCard(String.valueOf(pos));
-                    }
+                    pane.updateCardStatus(String.valueOf(pos), select);
                 }else{
                     //Error alert for card count reached.
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -272,9 +265,7 @@ public class App extends Application {
                         int finalValue = 0;
                         //check if computer has a good enough hand.
                         boolean computerHide = controller.shouldOpponentFold();
-                        if (computerHide){
-                            finalValue = 0;
-                        }else{
+                        if (!computerHide){
                             finalValue = value;
                         }
                         //update the pot
@@ -289,7 +280,7 @@ public class App extends Application {
                         clearButtons();
 
                         //update cards of opponent if necessary
-                        pane.updateLayout(width, height, controller.playerCards(), computerHide ? null : controller.opponentCards());
+                        pane.updateLayout(width, height, controller.playerCards(), computerHide ? null : controller.opponentCards(), controller.getPlayerToken(), controller.getOpponentToken(), controller.getCoinsInPot());
 
                         //show message
                         String message = controller.determineWinner(computerHide);

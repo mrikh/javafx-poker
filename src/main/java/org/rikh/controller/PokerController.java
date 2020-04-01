@@ -13,19 +13,9 @@ import java.util.Random;
  */
 public class PokerController {
 
-    /**
-     * Instance of your hand
-     */
     private Hand playerHand;
-
-    /**
-     * Instance of the computers hand
-     */
     private Hand opponentHand;
 
-    /**
-     * Arraylist created to keep a track of the cards in deck.
-     */
     private ArrayList<Card> deck = new ArrayList<>();
 
     /**
@@ -85,7 +75,6 @@ public class PokerController {
     private void initializeDecks(){
 
         //generate deck
-        int counter = 0;
         for(int i = 1; i <= 4; i++){
             for(int j = 1; j <= 13; j++){
                 deck.add(new Card(i, j));
@@ -230,10 +219,10 @@ public class PokerController {
     public void changeCards(){
         Random rand = new Random();
 
-        for (int i = 0; i < selectedCardPosition.size(); i++){
+        for (Integer integer : selectedCardPosition) {
             int value = rand.nextInt(deck.size() - 1) + 1;
             Card temp = deck.remove(value);
-            playerHand.updateCard(selectedCardPosition.get(i), temp);
+            playerHand.updateCard(integer, temp);
         }
 
         //random number of cards to choose to replace.
@@ -300,9 +289,7 @@ public class PokerController {
         return cardsString(opponentHand);
     }
 
-    /**
-     * ================= PRIVATE METHODS BELOW HERE =================
-     */
+    /*  ================= PRIVATE METHODS BELOW HERE ================= */
 
     /**
      * Method to generate 5 cards from the deck.

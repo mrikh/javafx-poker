@@ -1,5 +1,7 @@
 package org.rikh.model;
 
+import org.rikh.utilities.Constants;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,12 +12,10 @@ import java.util.Random;
  */
 public class Hand{
 
-    //array of type cards
-    public static int capacity = 5;
-    private Card[] hand = new Card[capacity];
+    private Card[] hand = new Card[Constants.totalCardsInHand];
 
     /**
-     * Constructor to create with specified values
+     * Constructor to create with specified values and sorts them.
      * @param suit Suit to assign. 0 if random suit
      * @param values Array of values to create cards with
      */
@@ -45,10 +45,12 @@ public class Hand{
 
     /**
      * Get the pattern shown by the hand.
-     * @return Returns one of the enum values after checking the hand.
+     * @return Returns an object of the pattern class containing our hand information. Combination, highest card and in some
+     * cases secondary card
      */
     public Pattern getBestHand(){
 
+        //TODO: Unnecessary to check for all combinations.
         Pattern royalFlush = royalFlushPattern();
         Pattern straightFlush = straightFlushPattern();
         Pattern fourKind = fourKindPattern();
@@ -59,6 +61,7 @@ public class Hand{
         Pattern twoPair = twoPairPattern();
         Pattern pair = pairPattern();
 
+        //check for hand and return appropriate hand depending on which is highest order of winning.
         if (royalFlush != null){
             return royalFlush;
         }else if (straightFlush != null){
@@ -78,63 +81,65 @@ public class Hand{
         }else if(pair != null){
             return pair;
         }else{
+            //Return nothing to ensure consistency.
             return new Pattern(Pattern.Combination.NOTHING, new Card(1, 1));
         }
     }
 
     @Override
+    /**
+     * Convert to a readable string format
+     */
     public String toString() {
         return "Hand : " + Arrays.toString(hand);
     }
 
+    /**
+     * Getter method for the cards in the hand
+     * @return Returns an array of card type objects.
+     */
     public Card[] getCards(){
         return hand;
     }
 
-    public Card getCard(int position) { return hand[position]; }
-
+    /**
+     * Update the card in the users hand.
+     * @param position Position of the card to update
+     * @param card Card object to assign at the position
+     */
     public void updateCard(int position, Card card){
         hand[position] = card;
         Arrays.sort(hand);
     }
 
+    /*  ================= PRIVATE METHODS BELOW HERE ================= */
+
     /**
-     * Check if the card is present inside the array that is passed
-     * @param card Card to check if it exists
-     * @param array Array to check inside for the card
-     * @return Returns a boolean value. True if it exists else false
+     * Determine if the hand is a royal flush
+     * @return An object of class Pattern containing relevant information
      */
-    private boolean cardExists(Card card, Card[] array){
-        for (int i = 0; i < array.length; i++){
-            if (array[i] == null){
-                continue;
-            }
-
-            if (card.toString().equalsIgnoreCase(array[i].toString())){
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    //Hand pattern checks
     private Pattern royalFlushPattern(){
 
-        //king at one end and ace in other is not present
         if (hand[hand.length - 1].getValue() != 13 && hand[0].getValue() != 1){
+            //king at one end and ace in other is not present so it can't be royal flush
             return null;
         }
 
         Card.Suit suit = hand[hand.length - 1].getSuit();
         for (int i = hand.length - 1; i > 1; i--){
+            //check if all the suits are the same and all follow the same sequence
             if ((hand[i].getValue() - hand[i - 1].getValue() != 1) || suit != hand[i].getSuit()){
+                //return null if even if one thing doesnt match
                 return null;
             }
         }
         return new Pattern(Pattern.Combination.ROYAL_FLUSH, hand[0]);
     }
 
+    /**
+     * Determine if its a straight flush pattern.
+     * @return An object of class Pattern containing relevant information
+     */
     private Pattern straightFlushPattern(){
 
         Card.Suit suit = hand[hand.length - 1].getSuit();
@@ -146,6 +151,10 @@ public class Hand{
         return new Pattern(Pattern.Combination.STRAIGHT_FLUSH, hand[hand.length - 1]);
     }
 
+    /**
+     * Determine if its a straight pattern.
+     * @return An object of class Pattern containing relevant information
+     */
     private Pattern straightPattern(){
 
         for (int i = hand.length - 1; i >= 0; i--){
@@ -156,6 +165,10 @@ public class Hand{
         return new Pattern(Pattern.Combination.STRAIGHT, hand[hand.length - 1]);
     }
 
+    /**
+     * Determine if its a flush pattern.
+     * @return An object of class Pattern containing relevant information
+     */
     private Pattern flushPattern(){
 
         Card.Suit suit = hand[hand.length - 1].getSuit();
@@ -167,6 +180,10 @@ public class Hand{
         return new Pattern(Pattern.Combination.FLUSH, hand[hand.length - 1]);
     }
 
+    /**
+     * Determine if its a four of a kind pattern.
+     * @return An object of class Pattern containing relevant information
+     */
     private Pattern fourKindPattern(){
 
         HashMap<Integer, Integer> map = convertToHashMap();
@@ -184,6 +201,10 @@ public class Hand{
         return null;
     }
 
+    /**
+     * Determine if its a full house pattern.
+     * @return An object of class Pattern containing relevant information
+     */
     private Pattern fullHousePattern(){
 
         HashMap<Integer, Integer> map = convertToHashMap();
@@ -208,6 +229,10 @@ public class Hand{
         }
     }
 
+    /**
+     * Determine if its a triplet pattern.
+     * @return An object of class Pattern containing relevant information
+     */
     private Pattern tripletPattern(){
 
         HashMap<Integer, Integer> map = convertToHashMap();
@@ -224,6 +249,10 @@ public class Hand{
         return null;
     }
 
+    /**
+     * Determine if its a two pair pattern.
+     * @return An object of class Pattern containing relevant information
+     */
     private Pattern twoPairPattern(){
 
         HashMap<Integer, Integer> map = convertToHashMap();
@@ -248,6 +277,10 @@ public class Hand{
         }
     }
 
+    /**
+     * Determine if its a single pair pattern.
+     * @return An object of class Pattern containing relevant information
+     */
     private Pattern pairPattern(){
 
         HashMap<Integer, Integer> map = convertToHashMap();
@@ -265,6 +298,10 @@ public class Hand{
         return null;
     }
 
+    /**
+     * Private method to convert the hand to a hashmap with each key containing the count of that card in the hand.
+     * @return
+     */
     private HashMap<Integer, Integer> convertToHashMap(){
 
         HashMap<Integer, Integer> map = new HashMap<>();
