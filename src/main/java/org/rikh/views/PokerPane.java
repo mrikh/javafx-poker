@@ -22,8 +22,8 @@ import org.rikh.utilities.Constants;
 public class PokerPane extends Pane {
 
     //use default values if nothing passed
-    public double width = 1000.0;
-    public double height = 1000.0;
+    public double width;
+    public double height;
 
     /**
      * Event handler for the card click action. This is assigned a value when the appropriate flow is started from our app class.
@@ -143,7 +143,7 @@ public class PokerPane extends Pane {
         setupPotArea();
 
         //Opponent card area
-        opponentCardPane = new CardsPane(width, "c", opponentCards);
+        opponentCardPane = new CardsPane(width, opponentCards);
         //Used simple maths to figure out the starting X coordinate. Since we want it centered on screen. We take half the screen width and
         //shift it to the left by half the width of the pane
         double opponentStartX = centerX - opponentCardPane.getTotalWidth()/2.0;
@@ -153,7 +153,7 @@ public class PokerPane extends Pane {
         getChildren().add(opponentCardPane);
 
         //Player card area.
-        playerCardPane = new CardsPane(width, "p", playerCards);
+        playerCardPane = new CardsPane(width, playerCards);
         double playerStartX = centerX - playerCardPane.getTotalWidth()/2.0;
         playerCardPane.setLayoutX(playerStartX);
         //The height is set to be 30 pixels from the bottom of the screen. Subtract the card height even further to move the starting point

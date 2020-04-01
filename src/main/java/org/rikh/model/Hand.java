@@ -86,10 +86,10 @@ public class Hand{
         }
     }
 
-    @Override
     /**
      * Convert to a readable string format
      */
+    @Override
     public String toString() {
         return "Hand : " + Arrays.toString(hand);
     }
@@ -172,8 +172,8 @@ public class Hand{
     private Pattern flushPattern(){
 
         Card.Suit suit = hand[hand.length - 1].getSuit();
-        for (int i = 0; i < hand.length; i++){
-            if (suit != hand[i].getSuit()){
+        for (Card card : hand) {
+            if (suit != card.getSuit()) {
                 return null;
             }
         }
@@ -291,7 +291,6 @@ public class Hand{
     private Pattern pairPattern(){
 
         HashMap<Integer, Integer> map = convertToHashMap();
-        int counter = 0;
 
         for (Map.Entry<Integer, Integer> pair : map.entrySet()){
             Integer key = pair.getKey();
@@ -307,16 +306,16 @@ public class Hand{
 
     /**
      * Private method to convert the hand to a hashmap with each key containing the count of that card in the hand.
-     * @return
+     * @return Hashmap containing keys as card values and in the value part will be the number of times that card number appears
      */
     private HashMap<Integer, Integer> convertToHashMap(){
 
         HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < hand.length; i++){
-            int value = hand[i].getValue();
-            if (map.get(value) == null){
+        for (Card card : hand) {
+            int value = card.getValue();
+            if (map.get(value) == null) {
                 map.put(value, 1);
-            }else{
+            } else {
                 map.put(value, map.get(value) + 1);
             }
         }

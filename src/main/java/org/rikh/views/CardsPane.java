@@ -24,16 +24,15 @@ public class CardsPane extends FlowPane{
     private double spacing = 10.0;
 
     //instance variable for the height and width of the card
-    private double cardWidth = 0.0;
-    private double cardHeight = 0.0;
+    private double cardWidth;
+    private double cardHeight;
 
     /**
      * Constructor to initialize the card layout
      * @param screenWidth Width of the screen to drawn on
-     * @param id  ID of each individual card to be set. This is to uniquely identify the card later for selection
      * @param cards Array containing title of the cards.
      */
-    public CardsPane(double screenWidth, String id, String[] cards){
+    public CardsPane(double screenWidth, String[] cards){
 
         //done as we want the card to be of a minimum size and not get too small
         cardWidth = Math.max(Constants.defaultCardWidth, screenWidth/14.0);

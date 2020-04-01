@@ -52,10 +52,10 @@ public class Card implements Comparable<Card>{
      */
     public Suit getSuit(){ return suit;}
 
-    @Override
     /**
      * Return a pretty format for the card class values
      */
+    @Override
     public String toString() {
 
         String temp = "";
@@ -116,13 +116,7 @@ public class Card implements Comparable<Card>{
             }
         }
 
-        if (this.value > o.value){
-            return 1;
-        }else if (this.value < o.value){
-            return -1;
-        }else{
-            return 0;
-        }
+        return Integer.compare(this.value, o.value);
     }
 
     /*  ================= PRIVATE METHODS BELOW HERE ================= */

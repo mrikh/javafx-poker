@@ -7,17 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0364009d-2538-423c-818a-e57807dd595a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Poker.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/rikh/model/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rikh/model/Card.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/rikh/model/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rikh/model/Hand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/rikh/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/rikh/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/rikh/model/Pattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rikh/model/Pattern.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/rikh/views/CardsPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rikh/views/CardsPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/rikh/views/PokerPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rikh/views/PokerPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/rikh/controller/PokerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/rikh/controller/PokerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/rikh/model/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/rikh/model/Card.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/rikh/model/Hand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/rikh/model/Hand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/rikh/utilities/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/rikh/utilities/Constants.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,10 +112,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="411" height="466" key="DebuggerActiveHint/0.0.1440.900@0.0.1440.900" timestamp="1585530804581" />
-    <state width="1398" height="260" key="GridCell.Tab.0.bottom" timestamp="1585778365990">
+    <state width="1398" height="215" key="GridCell.Tab.0.bottom" timestamp="1585778739591">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="260" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1585778365990" />
+    <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1585778739591" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1585358418236" />
     <state width="699" height="223" key="GridCell.Tab.0.bottom/0.23.1440.816@0.23.1440.816" timestamp="1585678554248" />
     <state width="1398" height="215" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1585778186061" />
@@ -125,10 +123,10 @@
     <state width="1398" height="225" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1585593039198" />
     <state width="1398" height="115" key="GridCell.Tab.0.bottom/0.23.1440.825@0.23.1440.825" timestamp="1585500017587" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.826@0.23.1440.826" timestamp="1585415599349" />
-    <state width="1398" height="260" key="GridCell.Tab.0.center" timestamp="1585778365988">
+    <state width="1398" height="215" key="GridCell.Tab.0.center" timestamp="1585778739589">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="260" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1585778365988" />
+    <state width="1398" height="215" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1585778739589" />
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1585358418234" />
     <state width="699" height="223" key="GridCell.Tab.0.center/0.23.1440.816@0.23.1440.816" timestamp="1585678554247" />
     <state width="1398" height="215" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1585778186058" />
@@ -136,10 +134,10 @@
     <state width="1398" height="225" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1585593039193" />
     <state width="1398" height="115" key="GridCell.Tab.0.center/0.23.1440.825@0.23.1440.825" timestamp="1585500017586" />
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.826@0.23.1440.826" timestamp="1585415599347" />
-    <state width="1398" height="260" key="GridCell.Tab.0.left" timestamp="1585778365987">
+    <state width="1398" height="215" key="GridCell.Tab.0.left" timestamp="1585778739588">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="260" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1585778365987" />
+    <state width="1398" height="215" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1585778739588" />
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1585358418233" />
     <state width="699" height="223" key="GridCell.Tab.0.left/0.23.1440.816@0.23.1440.816" timestamp="1585678554246" />
     <state width="1398" height="215" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1585778186054" />
@@ -147,10 +145,10 @@
     <state width="1398" height="225" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1585593039193" />
     <state width="1398" height="115" key="GridCell.Tab.0.left/0.23.1440.825@0.23.1440.825" timestamp="1585500017585" />
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.826@0.23.1440.826" timestamp="1585415599346" />
-    <state width="1398" height="260" key="GridCell.Tab.0.right" timestamp="1585778365989">
+    <state width="1398" height="215" key="GridCell.Tab.0.right" timestamp="1585778739590">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="260" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1585778365989" />
+    <state width="1398" height="215" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1585778739590" />
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1585358418235" />
     <state width="699" height="223" key="GridCell.Tab.0.right/0.23.1440.816@0.23.1440.816" timestamp="1585678554247" />
     <state width="1398" height="215" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1585778186059" />

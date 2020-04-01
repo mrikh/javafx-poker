@@ -29,10 +29,10 @@ public class Pattern implements Comparable<Pattern>{
             return value;
         }
 
-        @Override
         /**
          * Return value as a string
          */
+        @Override
         public String toString() {
             switch (this){
                 case ROYAL_FLUSH:
@@ -101,13 +101,7 @@ public class Pattern implements Comparable<Pattern>{
      */
     @Override
     public int compareTo(Pattern o) {
-        if (this.combination.getValue() > o.combination.getValue()){
-            return 1;
-        }else if (this.combination.getValue() < o.combination.getValue()){
-            return -1;
-        }else{
-            return 0;
-        }
+        return Integer.compare(this.combination.getValue(), o.combination.getValue());
     }
 
     /**
@@ -121,16 +115,14 @@ public class Pattern implements Comparable<Pattern>{
 
         if (combination.getValue() == 1 && highestCard.getValue() > 10) {
             return true;
-        }else if (combination.getValue() > 1){
-            return true;
-        }else{
-            return false;
+        }else {
+            return combination.getValue() > 1;
         }
     }
 
     /**
-     * Convert the Patthern to a readable string format
-     * @return
+     * Convert the Pattern to a readable string format
+     * @return String in a pretty format with the description
      */
     @Override
     public String toString() {
