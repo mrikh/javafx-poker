@@ -266,9 +266,16 @@ public class Hand{
             if (value == 2 && firstPair == -1){
                 firstPair = key;
             }else if (value == 2){
-                secondPair = key;
+                //first card will always be greater
+                if (key > firstPair){
+                    secondPair = firstPair;
+                    firstPair = key;
+                }else{
+                    secondPair = key;
+                }
             }
         }
+
 
         if (firstPair != -1 && secondPair != -1){
             return new Pattern(Pattern.Combination.TWO_PAIRS, new Card(1, firstPair), new Card(1, secondPair));
