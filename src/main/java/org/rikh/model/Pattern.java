@@ -111,7 +111,7 @@ public class Pattern implements Comparable<Pattern>{
      *
      * @return True if its a combination you won't fold for.
      */
-    public boolean isDecentCombination(){
+    public boolean isQualifyingHand(){
 
         if (combination.getValue() == 1 && highestCard.getValue() > 10) {
             return true;

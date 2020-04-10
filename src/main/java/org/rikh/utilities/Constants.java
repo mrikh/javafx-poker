@@ -6,6 +6,9 @@ package org.rikh.utilities;
  */
 public class Constants {
 
+    //unique identifiers
+    public static String quit = "quit";
+
     //Strings
     public static String opponent = "Computer";
     public static String player = "Player";

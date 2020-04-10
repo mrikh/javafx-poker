@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Class to keep track of the cards user has in his hand
+ * Class to keep track of the cards user has in his hand. This class was used in the week 7 exercise as well
+ * but this was has been more heavily modified. Change the enum combination to pattern in this class to contain
+ * card information for comparison as well. This was also heavily modified to introduce new methods.
  */
 public class Hand{
 

@@ -1,5 +1,6 @@
 package org.rikh.views;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -126,6 +127,22 @@ public class PokerPane extends Pane {
         return playerCardPane.getCardHeight();
     }
 
+    /**
+     * Generic method to display a message on the screen
+     * @param message String to display
+     */
+
+    public void showText(String message){
+
+        Text text = new Text(message);
+        text.setFont(Font.font(20));
+        text.setX(0);
+        text.setY(height/2.0);
+        text.setTextAlignment(TextAlignment.CENTER);
+        text.setWrappingWidth(width);
+        getChildren().add(text);
+    }
+
     /*  ================= PRIVATE METHODS BELOW HERE ================= */
 
     /**
@@ -179,6 +196,16 @@ public class PokerPane extends Pane {
         potTokenPane.setLayoutY(height/2.0);
         potTokenPane.setLayoutX(width/2.0);
         getChildren().add(potTokenPane);
+
+        Button quitButton = new Button();
+        quitButton.setOnAction(actionEvent -> {
+            Platform.exit();
+        });
+        quitButton.setText("Quit");
+        quitButton.setId(Constants.quit);
+        quitButton.setLayoutX(width - 75.0);
+        quitButton.setLayoutY(25.0);
+        getChildren().add(quitButton);
     }
 
     /**

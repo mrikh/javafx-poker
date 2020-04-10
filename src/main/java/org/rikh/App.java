@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.rikh.utilities.Constants;
@@ -61,8 +62,17 @@ public class App extends Application {
         //Our scene which is subclassed from the Pane class.
         pane = new PokerPane(width, height, controller.playerCards(), null);
 
-        //Initial button setup to decide who will go first. TODO: Logic will be implemented later after asking ashish.
-        setupGoFirstButtons();
+        //Initial button setup to decide who will go first.
+        int betterHand = controller.getBetterQualifyingHand();
+        if(betterHand == 1){
+            //user starts and decides who goes first
+            setupGoFirstButtons();
+        }else{
+            //computer won
+            dealerTokenBet();
+            controller.changeOpponentCards();
+            startDiscard(false);
+        }
 
         //Our scene which will hold the poker pane.
         Scene scene = new Scene(pane, screenDimensions.getWidth(), screenDimensions.getHeight());
@@ -84,8 +94,8 @@ public class App extends Application {
         //Setup the stage
         stage.setTitle(Constants.title);
         stage.setScene(scene);
-        stage.setMinHeight(480.0);
-        stage.setMinWidth(320.0);
+        stage.setMinHeight(screenDimensions.getHeight()/2.0);
+        stage.setMinWidth(screenDimensions.getWidth()/2.0);
         stage.show();
     }
 
@@ -143,7 +153,7 @@ public class App extends Application {
         }else if (controller.completedDiscard){
             setupBetting();
         }else if (controller.startDiscard){
-            startDiscard();
+            startDiscard(true);
         }else{
             setupGoFirstButtons();
         }
@@ -154,25 +164,34 @@ public class App extends Application {
      */
     private void setupGoFirstButtons(){
 
-        //Both the actions do common things
-        EventHandler<ActionEvent> action = actionEvent -> {
-            controller.updatePot(1,1);
-            pane.updatePlayerTokens(controller.getPlayerToken());
-            pane.updateOpponentTokens(controller.getOpponentToken());
-            pane.updatePotTokens(controller.getCoinsInPot());
+        Button playerButton = setupButton("Go First", actionEvent -> {
+            dealerTokenBet();
             clearButtons();
-            startDiscard();
-        };
-
-        Button playerButton = setupButton("Go First", action);
+            startDiscard(true);
+        });
         playerButton.setLayoutX(width/2.0 + pane.getCardPaneWidth() / 2.0 + 15.0);
         playerButton.setLayoutY(pane.getPlayerCardPaneY() + pane.getCardHeight() / 2.0);
         pane.getChildren().add(playerButton);
 
-        Button opponentButton = setupButton("Go First", action);
+        Button opponentButton = setupButton("Go First", actionEvent -> {
+            dealerTokenBet();
+            clearButtons();
+            controller.changeOpponentCards();
+            startDiscard(false);
+        });
         opponentButton.setLayoutX(width/2.0 + pane.getCardPaneWidth() / 2.0 + 15.0);
         opponentButton.setLayoutY(pane.getOpponentCardPaneY() + pane.getCardHeight() / 2.0);
         pane.getChildren().add(opponentButton);
+    }
+
+    /**
+     * Convenience method to perform the first bet.
+     */
+    private void dealerTokenBet(){
+        controller.updatePot(1,1);
+        pane.updatePlayerTokens(controller.getPlayerToken());
+        pane.updateOpponentTokens(controller.getOpponentToken());
+        pane.updatePotTokens(controller.getCoinsInPot());
     }
 
     /**
@@ -192,16 +211,18 @@ public class App extends Application {
     /**
      * Method to be called after it is decided who goes first. Setup discard layout
      */
-    private void startDiscard(){
+    private void startDiscard(boolean changeOpponentCards){
 
         controller.startDiscard = true;
+        pane.showText("Please select cards to discard by tapping on them");
 
         Button doneButton = setupButton("Done", actionEvent -> {
-            controller.changeCards();
+            controller.changeCards(changeOpponentCards);
             pane.updateLayout(width, height, controller.playerCards(), null, controller.getPlayerToken(), controller.getOpponentToken(), controller.getCoinsInPot());
             //remove card click
             pane.cardClickAction = null;
             clearButtons();
+            clearMessages();
             setupBetting();
         });
 
@@ -265,6 +286,10 @@ public class App extends Application {
                         int finalValue = 0;
                         //check if computer has a good enough hand.
                         boolean computerHide = controller.shouldOpponentFold();
+
+                        //cant use 4 coins if user has 2. So we pick the smaller value of the two.
+                        value = Math.min(value, controller.getPlayerToken());
+
                         if (!computerHide){
                             finalValue = value;
                         }
@@ -314,9 +339,25 @@ public class App extends Application {
         ArrayList<Node> buttons = new ArrayList<>();
         for (Node node : pane.getChildren()){
             if (node instanceof Button){
-                buttons.add(node);
+                if (node.getId() == null) {
+                    buttons.add(node);
+                }
             }
         }
         pane.getChildren().removeAll(buttons);
+    }
+
+    /**
+     * Remove message displayed on screen
+     */
+    private void clearMessages(){
+
+        ArrayList<Node> text = new ArrayList<>();
+        for (Node node : pane.getChildren()){
+            if (node instanceof Text){
+                text.add(node);
+            }
+        }
+        pane.getChildren().removeAll(text);
     }
 }

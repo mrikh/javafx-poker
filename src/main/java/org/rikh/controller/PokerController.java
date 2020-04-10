@@ -87,6 +87,40 @@ public class PokerController {
     }
 
     /**
+     * Method to determine who goes first. Returns 1 if user has better qualifying hand, -1 if computer does.
+     * Returns result by using random value if no one wins. Chance is the best option
+     * @return
+     */
+    public int getBetterQualifyingHand(){
+
+        //Get the best possible hand for the two people in the game
+        Pattern playerPattern = playerHand.getBestHand();
+        Pattern opponentPattern = opponentHand.getBestHand();
+
+        //check for qualifying hand
+        boolean isPlayerQualifyingHand = playerPattern.isQualifyingHand();
+        boolean isOpponentQualifyingHand = opponentPattern.isQualifyingHand();
+
+        if (isPlayerQualifyingHand && isOpponentQualifyingHand){
+
+            Random rand = new Random();
+            boolean value = rand.nextBoolean();
+            return value ? 1 : -1;
+
+        }else if (isPlayerQualifyingHand){
+            return 1;
+        }else if(isOpponentQualifyingHand){
+            return -1;
+        }else{
+            //noone has qualifying hand
+
+            Random rand = new Random();
+            boolean value = rand.nextBoolean();
+            return value ? 1 : -1;
+        }
+    }
+
+    /**
      * Method that contains the logic for deciding the winner between two users.
      * @param gaveUp Boolean value that informs you if the opponent gave up or called your bet.
      * @return Returns the message to display on deciding the winner
@@ -210,13 +244,13 @@ public class PokerController {
      */
     public boolean shouldOpponentFold(){
         Pattern computer = opponentHand.getBestHand();
-        return !computer.isDecentCombination();
+        return !computer.isQualifyingHand();
     }
 
     /**
      * Change the cards in the players hands and opponenets hands.
      */
-    public void changeCards(){
+    public void changeCards(boolean changeOpponentCards){
         Random rand = new Random();
 
         for (Integer integer : selectedCardPosition) {
@@ -225,8 +259,19 @@ public class PokerController {
             playerHand.updateCard(integer, temp);
         }
 
+        if (changeOpponentCards) {
+            changeOpponentCards();
+        }
+    }
+
+    /**
+     * Change cards in opponents hand
+     */
+    public void changeOpponentCards(){
         //random number of cards to choose to replace.
+        Random rand = new Random();
         int number = rand.nextInt(Constants.selectableCards - 1) + 1;
+
         for (int i = 0; i < number; i++){
             //will always update in the same sequence but different number of cards
             int value = rand.nextInt(deck.size() - 1) + 1;

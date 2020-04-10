@@ -2,7 +2,8 @@ package org.rikh.model;
 import java.util.Random;
 
 /**
- * Class to hold all card information
+ * Class to hold all card information. This class was used in the week 7 exercise and has been modified
+ * to add the comparable interface.
  */
 public class Card implements Comparable<Card>{
 
