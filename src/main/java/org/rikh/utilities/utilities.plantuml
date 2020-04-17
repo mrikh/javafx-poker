@@ -1,0 +1,65 @@
+@startuml
+
+title __UTILITIES's Class Diagram__\n
+
+  namespace org.rikh{
+    namespace org.rikh {
+      namespace utilities {
+        class org.rikh.utilities.Constants {
+            {static} + blackHex : String
+            {static} + defaultCardHeight : double
+            {static} + defaultCardWidth : double
+            {static} + greenHex : String
+            {static} + initialOpponentCoins : int
+            {static} + initialPlayerCoins : int
+            {static} + kAce : String
+            {static} + kAddTokens : String
+            {static} + kChooseBet : String
+            {static} + kClubs : String
+            {static} + kContinue : String
+            {static} + kDiamonds : String
+            {static} + kDone : String
+            {static} + kDraw : String
+            {static} + kEnterNumber : String
+            {static} + kEnterValue : String
+            {static} + kFlush : String
+            {static} + kFourKind : String
+            {static} + kFullHouse : String
+            {static} + kGameOver : String
+            {static} + kGoFirst : String
+            {static} + kHearts : String
+            {static} + kJack : String
+            {static} + kKing : String
+            {static} + kNothing : String
+            {static} + kOnePair : String
+            {static} + kOpponentWinsWith : String
+            {static} + kQueen : String
+            {static} + kQuestion : String
+            {static} + kQuit : String
+            {static} + kRoyalFlush : String
+            {static} + kSecondaryCard : String
+            {static} + kSelectFourToDiscard : String
+            {static} + kSelectOnlyFour : String
+            {static} + kSpades : String
+            {static} + kStartBet : String
+            {static} + kStraight : String
+            {static} + kStraightFlush : String
+            {static} + kTitle : String
+            {static} + kTriplets : String
+            {static} + kTwoPair : String
+            {static} + kWithHighestCard : String
+            {static} + kYouWin : String
+            {static} + kYouWinWith : String
+            {static} + lightGreenGex : String
+            {static} + quit : String
+            {static} + redHex : String
+            {static} + selectableCards : int
+            {static} + tokenRadius : double
+            {static} + totalCardsInHand : int
+            {static} + whiteHex : String
+        }
+      }
+    }
+  }
+
+@enduml

@@ -1,5 +1,7 @@
 package org.rikh.model;
 
+import org.rikh.utilities.Constants;
+
 /**
  * Class containing a particular hand's winning combination information
  */
@@ -36,27 +38,27 @@ public class Pattern implements Comparable<Pattern>{
         public String toString() {
             switch (this){
                 case ROYAL_FLUSH:
-                    return "Royal Flush";
+                    return Constants.kRoyalFlush;
                 case STRAIGHT_FLUSH:
-                    return "Straight Flush";
+                    return Constants.kStraightFlush;
                 case FOUR_KIND:
-                    return "Four of a Kind";
+                    return Constants.kFourKind;
                 case FLUSH:
-                    return "Flush";
+                    return Constants.kFlush;
                 case STRAIGHT:
-                    return "Straight";
+                    return Constants.kStraight;
                 case FULL_HOUSE:
-                    return "Full House";
+                    return Constants.kFullHouse;
                 case TWO_PAIRS:
-                    return "Two Pairs";
+                    return Constants.kTwoPair;
                 case PAIR:
-                    return "One Pair";
+                    return Constants.kOnePair;
                 case NOTHING:
-                    return "Nothing";
+                    return Constants.kNothing;
                 case TRIPLETS:
-                    return "Triplets";
+                    return Constants.kTriplets;
             }
-            return "Nothing";
+            return Constants.kNothing;
         }
     }
 
@@ -126,7 +128,7 @@ public class Pattern implements Comparable<Pattern>{
      */
     @Override
     public String toString() {
-        return combination.toString() + " with highest card " + highestCard.toString();
+        return combination.toString() + Constants.kWithHighestCard + highestCard.toString();
     }
 
     /**

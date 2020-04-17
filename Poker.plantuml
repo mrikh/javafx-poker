@@ -1,0 +1,25 @@
+@startuml
+
+title __POKER's Class Diagram__\n
+
+  org.rikh.App -up-|> javafx.application.Application
+  org.rikh.App o-- org.rikh.controller.PokerController : controller
+  org.rikh.App o-- org.rikh.views.PokerPane : pane
+  org.rikh.controller.PokerController o-- org.rikh.model.Hand : opponentHand
+  org.rikh.controller.PokerController o-- org.rikh.model.Hand : playerHand
+  org.rikh.model.Card .up.|> java.lang.Comparable
+  org.rikh.model.Card o-- org.rikh.model.Card.Suit : suit
+  org.rikh.model.Pattern .up.|> java.lang.Comparable
+  org.rikh.model.Pattern o-- org.rikh.model.Pattern.Combination : combination
+  org.rikh.model.Pattern o-- org.rikh.model.Card : highestCard
+  org.rikh.model.Pattern o-- org.rikh.model.Card : otherCard
+  org.rikh.views.CardsPane -up-|> javafx.scene.layout.FlowPane
+  org.rikh.views.PokerPane -up-|> javafx.scene.layout.Pane
+  org.rikh.views.PokerPane o-- org.rikh.views.CardsPane : opponentCardPane
+  org.rikh.views.PokerPane o-- org.rikh.views.TokenPane : opponentTokenPane
+  org.rikh.views.PokerPane o-- org.rikh.views.CardsPane : playerCardPane
+  org.rikh.views.PokerPane o-- org.rikh.views.TokenPane : playerTokenPane
+  org.rikh.views.PokerPane o-- org.rikh.views.TokenPane : potTokenPane
+  org.rikh.views.TokenPane -up-|> javafx.scene.layout.FlowPane
+
+@enduml

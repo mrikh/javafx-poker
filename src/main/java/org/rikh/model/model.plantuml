@@ -1,0 +1,82 @@
+@startuml
+
+title __MODEL's Class Diagram__\n
+
+  namespace org.rikh {
+    namespace org.rikh {
+      namespace model {
+        class org.rikh.model.Card {
+            - value : int
+            + Card()
+            + Card()
+            + compareTo()
+            + getSuit()
+            + getValue()
+            + toString()
+            - createSuit()
+        }
+
+         enum Suit {
+                  CLUBS
+                  DIAMONDS
+                  HEARTS
+                  SPADES
+                }
+
+                class org.rikh.model.Hand {
+                            - hand : Card[]
+                            + Hand()
+                            + Hand()
+                            + getBestHand()
+                            + getCards()
+                            + toString()
+                            + updateCard()
+                            - convertToHashMap()
+                            - flushPattern()
+                            - fourKindPattern()
+                            - fullHousePattern()
+                            - pairPattern()
+                            - royalFlushPattern()
+                            - straightFlushPattern()
+                            - straightPattern()
+                            - tripletPattern()
+                            - twoPairPattern()
+                        }
+
+                        class org.rikh.model.Pattern {
+                                    + Pattern()
+                                    + Pattern()
+                                    + compareTo()
+                                    + getHighestCard()
+                                    + getSecondaryCard()
+                                    + isQualifyingHand()
+                                    + toString()
+                                }
+
+                                enum Combination {
+                                          FLUSH
+                                          FOUR_KIND
+                                          FULL_HOUSE
+                                          NOTHING
+                                          PAIR
+                                          ROYAL_FLUSH
+                                          STRAIGHT
+                                          STRAIGHT_FLUSH
+                                          TRIPLETS
+                                          TWO_PAIRS
+                                          value
+                                        }
+      }
+    }
+  }
+
+  org.rikh.model.Card .up.|> java.lang.Comparable
+  org.rikh.model.Card o-- org.rikh.model.Card.Suit : suit
+  org.rikh.model.Card +-down- org.rikh.model.Card.Suit
+  org.rikh.model.Pattern .up.|> java.lang.Comparable
+  org.rikh.model.Pattern o-- org.rikh.model.Pattern.Combination : combination
+  org.rikh.model.Pattern o-- org.rikh.model.Card : highestCard
+  org.rikh.model.Pattern o-- org.rikh.model.Card : otherCard
+  org.rikh.model.Pattern +-down- org.rikh.model.Pattern.Combination
+
+@enduml

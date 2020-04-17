@@ -92,7 +92,7 @@ public class App extends Application {
         });
 
         //Setup the stage
-        stage.setTitle(Constants.title);
+        stage.setTitle(Constants.kTitle);
         stage.setScene(scene);
         stage.setMinHeight(screenDimensions.getHeight()/2.0);
         stage.setMinWidth(screenDimensions.getWidth()/2.0);
@@ -117,7 +117,7 @@ public class App extends Application {
         if (controller.getPlayerToken() == 0 || controller.getOpponentToken() == 0){
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("GAME OVER");
+            alert.setContentText(Constants.kGameOver);
             alert.setOnCloseRequest(dialogEvent -> Platform.exit());
             alert.show();
 
@@ -164,7 +164,7 @@ public class App extends Application {
      */
     private void setupGoFirstButtons(){
 
-        Button playerButton = setupButton("Go First", actionEvent -> {
+        Button playerButton = setupButton(Constants.kGoFirst, actionEvent -> {
             dealerTokenBet();
             clearButtons();
             startDiscard(true);
@@ -173,7 +173,7 @@ public class App extends Application {
         playerButton.setLayoutY(pane.getPlayerCardPaneY() + pane.getCardHeight() / 2.0);
         pane.getChildren().add(playerButton);
 
-        Button opponentButton = setupButton("Go First", actionEvent -> {
+        Button opponentButton = setupButton(Constants.kGoFirst, actionEvent -> {
             dealerTokenBet();
             clearButtons();
             controller.changeOpponentCards();
@@ -214,9 +214,9 @@ public class App extends Application {
     private void startDiscard(boolean changeOpponentCards){
 
         controller.startDiscard = true;
-        pane.showText("Please select cards to discard by tapping on them");
+        pane.showText(Constants.kSelectFourToDiscard);
 
-        Button doneButton = setupButton("Done", actionEvent -> {
+        Button doneButton = setupButton(Constants.kDone, actionEvent -> {
             controller.changeCards(changeOpponentCards);
             pane.updateLayout(width, height, controller.playerCards(), null, controller.getPlayerToken(), controller.getOpponentToken(), controller.getCoinsInPot());
             //remove card click
@@ -243,7 +243,7 @@ public class App extends Application {
                 }else{
                     //Error alert for card count reached.
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setContentText("You can only select up to 4 cards");
+                    alert.setContentText(Constants.kSelectOnlyFour);
                     alert.show();
                 }
             }
@@ -265,13 +265,13 @@ public class App extends Application {
         controller.completedDiscard = true;
 
         //start betting button
-        Button start = setupButton("Start Betting", actionEvent -> {
+        Button start = setupButton(Constants.kStartBet, actionEvent -> {
 
             //input the betting amount, defaults to max amount.
             TextInputDialog dialog = new TextInputDialog("3");
-            dialog.setTitle("Start Betting");
-            dialog.setHeaderText("Add the tokens you want to bet.");
-            dialog.setContentText("Add a number between 0-3: ");
+            dialog.setTitle(Constants.kStartBet);
+            dialog.setHeaderText(Constants.kAddTokens);
+            dialog.setContentText(Constants.kChooseBet);
 
             //show dialog and wait for input
             Optional<String> result = dialog.showAndWait();
@@ -313,14 +313,14 @@ public class App extends Application {
 
                     }else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("Enter a value between 0 and 3");
+                        alert.setContentText(Constants.kEnterValue);
                         alert.show();
                     }
                 }catch(NumberFormatException e){
 
                     //Show error for number format exception. UI will force user to try again so no need to handle anything else
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setContentText("Input a number");
+                    alert.setContentText(Constants.kEnterNumber);
                     alert.show();
                 }
             });

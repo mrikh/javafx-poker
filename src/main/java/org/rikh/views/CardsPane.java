@@ -50,7 +50,7 @@ public class CardsPane extends FlowPane{
                 //if value of the string at index is null, we put a ?. This will happen mostly for the opponents cards
                 card = setupCard(String.valueOf(i), cardWidth, cardHeight, cards[i]);
             }catch (NullPointerException e){
-                card = setupCard(String.valueOf(i), cardWidth, cardHeight, "?");
+                card = setupCard(String.valueOf(i), cardWidth, cardHeight, Constants.kQuestion);
             }
             getChildren().add(card);
         }
@@ -91,7 +91,7 @@ public class CardsPane extends FlowPane{
                 if (stack.getId().equalsIgnoreCase(id)) {
                     for (Node child : stack.getChildren()){
                         if (child instanceof Rectangle){
-                            ((Rectangle)child).setStroke(select? Paint.valueOf("#ff0000") : Paint.valueOf("#000000"));
+                            ((Rectangle)child).setStroke(select? Paint.valueOf(Constants.redHex) : Paint.valueOf(Constants.whiteHex));
                         }
                     }
                 }

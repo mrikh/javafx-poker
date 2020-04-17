@@ -38,8 +38,8 @@ public class TokenPane extends FlowPane{
         for (int i = 0; i < tokenCount; i++){
             Circle circle = new Circle();
             circle.setRadius(Constants.tokenRadius);
-            circle.setStroke(Paint.valueOf("#000000"));
-            circle.setFill(Paint.valueOf("#fdd023"));
+            circle.setStroke(Paint.valueOf(Constants.blackHex));
+            circle.setFill(Paint.valueOf(Constants.lightGreenGex));
             getChildren().add(circle);
         }
     }

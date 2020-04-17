@@ -142,16 +142,16 @@ public class PokerController {
         if (gaveUp){
             //add all the coins to the users hand.
             playerToken += tempCoinsInPot;
-            return "Player wins cause opponent gave up";
+            return Constants.kYouWin;
         }else{
             if (comparison == 1){
                 //if player wins
                 playerToken += tempCoinsInPot;
-                return "Player wins with a " + playerPattern.toString();
+                return Constants.kYouWinWith + playerPattern.toString();
             }else if(comparison == -1){
                 //if opponent wins
                 opponentToken += tempCoinsInPot;
-                return "Opponent wins with a " + opponentPattern.toString();
+                return Constants.kOpponentWinsWith + opponentPattern.toString();
             }else{
                 //check highest card as combination was a match
                 Card playerHighestCard = playerPattern.getHighestCard();
@@ -160,11 +160,11 @@ public class PokerController {
                 if (playerHighestCard.compareTo(opponentHighestCard) == 1){
                     //player has the highest card
                     playerToken += tempCoinsInPot;
-                    return "Player wins with a " + playerPattern.toString();
+                    return Constants.kYouWinWith + playerPattern.toString();
                 }else if (playerHighestCard.compareTo(opponentHighestCard) == -1){
                     //opponent has the highest card
                     opponentToken += tempCoinsInPot;
-                    return "Opponent wins with a " + opponentPattern.toString();
+                    return Constants.kOpponentWinsWith + opponentPattern.toString();
                 }else{
 
                     //Check secondary card highest card is the same
@@ -176,21 +176,21 @@ public class PokerController {
                         //Draw as these values are not present
                         playerToken += tempCoinsInPot/2.0;
                         opponentToken += tempCoinsInPot/2.0;
-                        return "It is a draw!";
+                        return Constants.kDraw;
                     }else{
                         if (playerSecondaryCard.compareTo(opponentSecondaryCard) == 1){
                             //if player secondary card is bigger, player wins
                             playerToken += tempCoinsInPot;
-                            return "Player wins with a " + playerPattern.toString() + " and secondary card with value of " + playerSecondaryCard.toString();
+                            return Constants.kYouWinWith + playerPattern.toString() + Constants.kSecondaryCard + playerSecondaryCard.toString();
                         }else if (playerHighestCard.compareTo(opponentHighestCard) == -1){
                             //if opponent secondary card is bigger, he wins.
                             opponentToken += tempCoinsInPot;
-                            return "Opponent wins with a " + playerPattern.toString() + " and secondary card with value of " + opponentSecondaryCard.toString();
+                            return Constants.kOpponentWinsWith + playerPattern.toString() + Constants.kSecondaryCard + opponentSecondaryCard.toString();
                         }else{
                             //draw as secondary cards are also the same
                             playerToken += tempCoinsInPot/2.0;
                             opponentToken += tempCoinsInPot/2.0;
-                            return "It is a draw!";
+                            return Constants.kDraw;
                         }
                     }
                 }

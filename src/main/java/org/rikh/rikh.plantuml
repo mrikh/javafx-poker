@@ -1,0 +1,40 @@
+@startuml
+
+title __RIKH's Class Diagram__\n
+
+  namespace org.rikh {
+    namespace org.rikh {
+      class org.rikh.App {
+          - height : double
+          - width : double
+          {static} + main()
+          + start()
+          - clearButtons()
+          - clearMessages()
+          - commonLayoutChangeUpdate()
+          - dealerTokenBet()
+          - reset()
+          - setupBetting()
+          - setupButton()
+          - setupGoFirstButtons()
+          - startDiscard()
+      }
+    }
+  }
+
+
+  namespace org.rikh {
+    namespace org.rikh {
+      class org.rikh.SystemInfo {
+          {static} + javaVersion()
+          {static} + javafxVersion()
+      }
+    }
+  }
+
+
+  org.rikh.App -up-|> javafx.application.Application
+  org.rikh.App o-- org.rikh.controller.PokerController : controller
+  org.rikh.App o-- org.rikh.views.PokerPane : pane
+
+@enduml

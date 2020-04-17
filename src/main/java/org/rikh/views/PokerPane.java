@@ -201,7 +201,7 @@ public class PokerPane extends Pane {
         quitButton.setOnAction(actionEvent -> {
             Platform.exit();
         });
-        quitButton.setText("Quit");
+        quitButton.setText(Constants.kQuit);
         quitButton.setId(Constants.quit);
         quitButton.setLayoutX(width - 75.0);
         quitButton.setLayoutY(25.0);
@@ -223,7 +223,7 @@ public class PokerPane extends Pane {
         getChildren().add(text);
 
         Button doneButton = new Button();
-        doneButton.setText("Continue");
+        doneButton.setText(Constants.kContinue);
         doneButton.setOnAction(continueAction);
         doneButton.setLayoutY(height/2.0 + 40.0);
         doneButton.setLayoutX(width/2.0);
@@ -256,8 +256,8 @@ public class PokerPane extends Pane {
         circle.setCenterX(width/2.0);
         circle.setCenterY(height/2.0);
         circle.setStrokeWidth(3.0);
-        circle.setStroke(Paint.valueOf("#ffffff"));
-        circle.setFill(Paint.valueOf("#00ff00"));
+        circle.setStroke(Paint.valueOf(Constants.whiteHex));
+        circle.setFill(Paint.valueOf(Constants.greenHex));
         getChildren().add(circle);
 
         Line line = new Line();
@@ -266,7 +266,7 @@ public class PokerPane extends Pane {
         line.setEndX(width);
         line.setStartY(height/2.0);
         line.setEndY(height/2.0);
-        line.setStroke(Paint.valueOf("#ffffff"));
+        line.setStroke(Paint.valueOf(Constants.whiteHex));
         getChildren().add(line);
     }
 }

@@ -1,4 +1,6 @@
 package org.rikh.model;
+import org.rikh.utilities.Constants;
+
 import java.util.Random;
 
 /**
@@ -63,16 +65,16 @@ public class Card implements Comparable<Card>{
 
         switch (value){
             case 1:
-                temp = "Ace";
+                temp = Constants.kAce;
                 break;
             case 11:
-                temp = "Jack";
+                temp = Constants.kJack;
                 break;
             case 12:
-                temp = "Queen";
+                temp = Constants.kQueen;
                 break;
             case 13:
-                temp = "King";
+                temp = Constants.kKing;
                 break;
             default:
                 temp += value;
@@ -82,16 +84,16 @@ public class Card implements Comparable<Card>{
 
         switch (suit){
             case CLUBS:
-                temp += "Clubs";
+                temp += Constants.kClubs;
                 break;
             case DIAMONDS:
-                temp += "Diamonds";
+                temp += Constants.kDiamonds;
                 break;
             case HEARTS:
-                temp += "Hearts";
+                temp += Constants.kHearts;
                 break;
             case SPADES:
-                temp += "Spades";
+                temp += Constants.kSpades;
                 break;
         }
 
@@ -99,8 +101,8 @@ public class Card implements Comparable<Card>{
     }
 
     /**
-     * Interface method to compare two Card class objects. Since ace is the biggest card, we will use that first as if we apply
-     * our direct logic otherwise, ace has the lowest assigned number. Simply changing it to 14 breaks the straight match logic
+     * Interface method to compare two Card class objects. Ignores the suit. Since ace is the biggest card, we will use that first as
+     * if we apply our direct logic otherwise, ace has the lowest assigned number. Simply changing it to 14 breaks the straight match logic
      * and is only really necessary for card comparisons so did it here.
      *
      * @param o Second object to compare against

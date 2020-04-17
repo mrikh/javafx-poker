@@ -1,0 +1,45 @@
+@startuml
+
+title __CONTROLLER's Class Diagram__\n
+
+  namespace org.rikh {
+    namespace org.rikh {
+      namespace controller {
+        class org.rikh.controller.PokerController {
+            + completedDiscard : boolean
+            + showCard : boolean
+            + startDiscard : boolean
+            - coinsInPot : int
+            - deck : ArrayList<Card>
+            - opponentToken : int
+            - playerToken : int
+            - selectedCardPosition : ArrayList<Integer>
+            + PokerController()
+            + canUpdateCardSelection()
+            + changeCards()
+            + changeOpponentCards()
+            + clearCards()
+            + determineWinner()
+            + getBetterQualifyingHand()
+            + getCoinsInPot()
+            + getOpponentToken()
+            + getPlayerToken()
+            + opponentCards()
+            + playerCards()
+            + reset()
+            + shouldOpponentFold()
+            + updateCard()
+            + updatePot()
+            - cardsForHand()
+            - cardsString()
+            - initializeDecks()
+        }
+      }
+    }
+  }
+  
+
+  org.rikh.controller.PokerController o-- org.rikh.model.Hand : opponentHand
+  org.rikh.controller.PokerController o-- org.rikh.model.Hand : playerHand
+
+@enduml
