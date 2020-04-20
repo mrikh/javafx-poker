@@ -10,7 +10,7 @@ public class Pattern implements Comparable<Pattern>{
     /**
      * Enum containing combination information. Associated values allow us to compare the enum values.
      */
-    public enum Combination{
+    enum Combination{
         ROYAL_FLUSH(9), STRAIGHT_FLUSH(8), FOUR_KIND(7), FLUSH(6), STRAIGHT(5), FULL_HOUSE(4), TRIPLETS(3), TWO_PAIRS(2), PAIR(1), NOTHING(0);
         //value associated with the enum for easy comparison
         private int value;

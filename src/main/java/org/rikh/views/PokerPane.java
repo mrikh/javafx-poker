@@ -23,8 +23,8 @@ import org.rikh.utilities.Constants;
 public class PokerPane extends Pane {
 
     //use default values if nothing passed
-    public double width;
-    public double height;
+    private double width;
+    private double height;
 
     /**
      * Event handler for the card click action. This is assigned a value when the appropriate flow is started from our app class.

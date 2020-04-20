@@ -61,7 +61,7 @@ public class Constants {
     //default coin radius
     public static double tokenRadius = 10.0;
 
-    public static String whiteHex = "#000000";
+    public static String whiteHex = "#ffffff";
     public static String redHex = "#ff0000";
     public static String greenHex = "#00ff00";
     public static String blackHex = "#000000";

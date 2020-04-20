@@ -6,7 +6,8 @@ import javafx.scene.shape.Circle;
 import org.rikh.utilities.Constants;
 
 /**
- * Class that inherits from FlowPane. Done to have default methods and one constructor initialization of horizontal tokens.
+ * Class that inherits from FlowPane and initialize the tokens.
+ * Done to have default methods and one constructor initialization of horizontal tokens.
  */
 public class TokenPane extends FlowPane{
 

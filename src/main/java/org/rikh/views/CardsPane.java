@@ -14,7 +14,8 @@ import javafx.scene.text.TextAlignment;
 import org.rikh.utilities.Constants;
 
 /**
- * Class that inherits from FlowPane. This is done as I wanted the layout to be setup horizontally next to each other without having to
+ * Class that inherits from FlowPane. Used to create the UI for the cards.
+ * This is done as I wanted the layout to be setup horizontally next to each other without having to
  * manage each cards individual spacing mathematically. This is done similar to the poker pane so that we don't have create the UI every time
  * and initializing the class will setup the views automatically
  */

@@ -52,7 +52,6 @@ public class Hand{
      */
     public Pattern getBestHand(){
 
-        //TODO: Unnecessary to check for all combinations. Find better logic
         Pattern royalFlush = royalFlushPattern();
         Pattern straightFlush = straightFlushPattern();
         Pattern fourKind = fourKindPattern();

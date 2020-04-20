@@ -70,26 +70,9 @@ public class PokerController {
     }
 
     /**
-     * The logic initialization method. This will create the deck and assign cards to each player.
-     */
-    private void initializeDecks(){
-
-        //generate deck
-        for(int i = 1; i <= 4; i++){
-            for(int j = 1; j <= 13; j++){
-                deck.add(new Card(i, j));
-            }
-        }
-
-        //generate hands
-        playerHand = new Hand(cardsForHand());
-        opponentHand = new Hand(cardsForHand());
-    }
-
-    /**
-     * Method to determine who goes first. Returns 1 if user has better qualifying hand, -1 if computer does.
+     * Method to determine who goes first.
      * Returns result by using random value if no one wins. Chance is the best option
-     * @return
+     * @return Returns 1 if user has better qualifying hand, -1 if computer does.
      */
     public int getBetterQualifyingHand(){
 
@@ -103,6 +86,7 @@ public class PokerController {
 
         if (isPlayerQualifyingHand && isOpponentQualifyingHand){
 
+            //if both have qualifying hand, we randomize who goes first.
             Random rand = new Random();
             boolean value = rand.nextBoolean();
             return value ? 1 : -1;
@@ -335,6 +319,24 @@ public class PokerController {
     }
 
     /*  ================= PRIVATE METHODS BELOW HERE ================= */
+
+    /**
+     * The logic initialization method. This will create the deck and assign cards to each player.
+     */
+    private void initializeDecks(){
+
+        //generate deck
+        for(int i = 1; i <= 4; i++){
+            for(int j = 1; j <= 13; j++){
+                deck.add(new Card(i, j));
+            }
+        }
+
+        //generate hands
+        playerHand = new Hand(cardsForHand());
+        opponentHand = new Hand(cardsForHand());
+    }
+
 
     /**
      * Method to generate 5 cards from the deck.
